@@ -1,10 +1,13 @@
-﻿namespace GetRequiredSectionSample.Configurations
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GetRequiredSectionSample.Configurations
 {
     public class SampleOptions
     {
 
         public const string ConfigurationName = "SampleSection";
-        public string SampleProperty { get; set; }
 
+        [Required]
+        public string SampleProperty { get; set; }
     }
 }
