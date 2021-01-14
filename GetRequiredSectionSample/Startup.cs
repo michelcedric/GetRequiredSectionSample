@@ -31,19 +31,14 @@ namespace GetRequiredSectionSample
             // raise exception on startup
             var configSection = Configuration.GetRequiredSection(SampleOptions.ConfigurationName);
             services.Configure<SampleOptions>(configSection);
-
-            //// raise exception on fisrt usage
-            //services.Configure<SampleOptions>(options =>
-            //{
-            //    Configuration.GetRequiredSection(SampleOptions.ConfigurationName).Bind(options);
-            //});
-
+         
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GetRequiredSectionSample", Version = "v1" });
             });
         }
+
         private void CheckConfiguration(IApplicationBuilder app, IServiceCollection services)
         {
             var optionsServiceDescriptors = services.Where(s => s.ServiceType.Name.Contains("IOptionsChangeTokenSource"));
