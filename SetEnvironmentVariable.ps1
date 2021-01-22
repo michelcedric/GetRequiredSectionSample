@@ -1,0 +1,1 @@
+﻿[System.Environment]::SetEnvironmentVariable('SampleSection__SampleProperty','toto42',[System.EnvironmentVariableTarget]::Machine)

@@ -5,10 +5,12 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetRequiredSectionSample", "GetRequiredSectionSample\GetRequiredSectionSample.csproj", "{997BF6DD-0247-40B6-9FB7-C9B686B70914}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{F61C6538-AFAF-46BB-BA7C-02A5533F1496}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - nuget", "1 - nuget", "{F61C6538-AFAF-46BB-BA7C-02A5533F1496}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Solution Items", "0 - Solution Items", "{2725BE33-DE10-4494-8FB6-B18EE43B528B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
