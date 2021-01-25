@@ -31,7 +31,10 @@ namespace GetRequiredSectionSample
             // raise exception on startup
             var configSection = Configuration.GetRequiredSection(SampleOptions.ConfigurationName);
             services.Configure<SampleOptions>(configSection);
-         
+
+            var configSection2 = Configuration.GetRequiredSection(SecondOptions.ConfigurationName);
+            services.Configure<SecondOptions>(configSection2);
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -55,7 +58,7 @@ namespace GetRequiredSectionSample
                     dynamic instance = app.ApplicationServices.GetService(genericOptions);
                     var options = instance.Value;
                     var results = new List<ValidationResult>();
-                   
+
                     var isValid = Validator.TryValidateObject(options, new ValidationContext(options), results, true);
                     if (!isValid)
                     {

@@ -18,11 +18,13 @@ namespace GetRequiredSectionSample.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly SecondOptions _options2;
         private readonly SampleOptions _sampleOptions;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IOptions<SampleOptions> options)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IOptions<SampleOptions> options, IOptions<SecondOptions> options2)
         {
             _logger = logger;
+            _options2 = options2.Value;
             _sampleOptions = options.Value;
         }
 
@@ -35,7 +37,8 @@ namespace GetRequiredSectionSample.Controllers
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)],
-                AdditionalDataFromConfig = _sampleOptions.SampleProperty
+                AdditionalDataFromConfig = _sampleOptions.SampleProperty,
+                AdditionalDataFromConfig2 = _options2.SampleProperty
             })
             .ToArray();
         }

@@ -13,5 +13,6 @@ namespace GetRequiredSectionSample
         public string Summary { get; set; }
 
         public string AdditionalDataFromConfig { get; set; }
+        public string AdditionalDataFromConfig2 { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace GetRequiredSectionSample
@@ -15,6 +16,10 @@ namespace GetRequiredSectionSample
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureAppConfiguration((hosting, config) =>
+                {
+                    config.AddJsonFile("appsettings.Second.json", false, false);
                 });
     }
 }
