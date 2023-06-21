@@ -1,62 +1,46 @@
 using GetRequiredSectionSample.Configurations;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace GetRequiredSectionSample
+namespace GetRequiredSectionSample;
+public class Program
 {
-    public class Startup
+    static void Main(string[] args)
     {
-        public Startup(IConfiguration configuration)
+        var builder = WebApplication.CreateBuilder(args);
+
+        // raise exception on startup
+        var configSection = builder.Configuration.GetRequiredSection(SampleOptions.ConfigurationName);
+        builder.Services.Configure<SampleOptions>(configSection);
+
+        // raise exception on fisrt usage
+        //builder.Services.Configure<SampleOptions>(options =>
+        //{
+        //    builder.Configuration.GetRequiredSection(SampleOptions.ConfigurationName).Bind(options);
+        //});
+
+        builder.Services.AddControllers();
+        builder.Services.AddSwaggerGen(c =>
         {
-            Configuration = configuration;
-        }
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "GetRequiredSectionSample", Version = "v1" });
+        });
 
-        public IConfiguration Configuration { get; }
+        WebApplication app = builder.Build();
+       
+        app.UseDeveloperExceptionPage();
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GetRequiredSectionSample v1"));
+       
+        app.UseHttpsRedirection();
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // raise exception on startup
-            var configSection = Configuration.GetRequiredSection(SampleOptions.ConfigurationName);
-            services.Configure<SampleOptions>(configSection);
+        app.UseRouting();
 
-            //// raise exception on fisrt usage
-            //services.Configure<SampleOptions>(options =>
-            //{
-            //    Configuration.GetRequiredSection(SampleOptions.ConfigurationName).Bind(options);
-            //});
+        app.UseAuthorization();
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "GetRequiredSectionSample", Version = "v1" });
-            });
-        }
+        app.MapControllers();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GetRequiredSectionSample v1"));
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+        app.Run();
     }
 }
